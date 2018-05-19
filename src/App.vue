@@ -11,6 +11,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~reset-css/_reset";
+
 body {
   margin: 0;
 

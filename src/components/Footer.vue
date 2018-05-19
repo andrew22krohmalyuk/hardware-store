@@ -11,8 +11,8 @@
       <div class="footer__block">
         <div class="footer__block-title">Contacts</div>
         <div class="footer__block-list">
-          <div class="footer__block-item">Mail</div>
-          <div class="footer__block-item">About Us</div>
+          <div class="footer__block-item">hardware@mail.com</div>
+          <div class="footer__block-item">+4083(734)39834</div>
           <div class="footer__block-item">Ours Stores</div>
         </div>
       </div>
@@ -39,7 +39,7 @@ export default {
   .footer {
     display: flex;
     justify-content: space-around;
-    padding: 1rem 3rem;
+    padding: 2rem 3rem;
     color: $white-smoke;
     background: $night-rider;
 

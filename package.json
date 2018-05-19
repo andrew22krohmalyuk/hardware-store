@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "node-sass": "^4.9.0",
+    "reset-css": "^3.0.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "vue": "^2.5.2",
