@@ -11,13 +11,15 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "lodash": "^4.17.10",
     "node-sass": "^4.9.0",
     "reset-css": "^3.0.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "vue": "^2.5.2",
     "vue-digital-clock": "^1.5.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -1,6 +1,6 @@
 # hardware-store
 
-> onpu project
+> My Labs for Programing Web Applications course
 
 ## Build Setup
 
