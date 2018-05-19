@@ -53,7 +53,7 @@ export default {
 
   .home {
     &__page {
-      height: 600px;
+      padding-bottom: 12rem;
     }
 
     &__title {
