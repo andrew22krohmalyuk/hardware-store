@@ -24,7 +24,7 @@ export default {
 
   .home {
     &__page {
-      height: 700px;
+      // height: 700px;
     }
   }
 </style>
