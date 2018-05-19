@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <div class="header__title">Hardware store</div>
+    <router-link class="header__link" to="/">
+      <div class="header__title">Hardware store</div>
+    </router-link>
   </div>
 </template>
 
@@ -27,6 +29,10 @@ export default {
       font-family: "Pacifico";
       color: $emerald;
       padding: .5rem;
+    }
+
+    &__link {
+      text-decoration: none;
     }
   }
 

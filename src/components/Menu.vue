@@ -8,7 +8,7 @@
         </div>
         <ul class="menu__list" :class="{ ['menu__list--active']: activeMenu }">
           <li class="menu__item">
-            <router-link class="menu__link" to="/home">Home</router-link>
+            <router-link class="menu__link" to="/">Home</router-link>
           </li>
           <li class="menu__item">
             <router-link class="menu__link" to="/catalog">Catalog</router-link>

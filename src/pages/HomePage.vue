@@ -20,6 +20,11 @@
           <div class="home__login-form-button-wrapper">
             <button class="home__login-form-button">Submit</button>
           </div>
+          <div class="home__create-account-wrapper">
+            <router-link class="home__create-account" to="/create-account">
+              Create Account
+            </router-link>
+          </div>
         </form>
         <div class="home__image-container home__image-container--delay">
           <img src="../assets/drill.png" alt="Drill" class="home__image home__image--delay">
@@ -110,6 +115,17 @@ export default {
       &:hover {
         background: $emerald - 15;
       }
+    }
+
+    &__create-account-wrapper {
+      text-align: center;
+    }
+
+    &__create-account {
+      display: inline-block;
+      text-decoration: none;
+      padding-top: .5rem;
+      color: $emerald;
     }
 
     &__image-container {
