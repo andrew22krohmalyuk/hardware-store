@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <app-head></app-head>
-    Home page!
+    <div class="home__page">Home page!</div>
     <app-footer></app-footer>
   </div>
 </template>
@@ -20,5 +20,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import "../styles/colors";
 
+  .home {
+    &__page {
+      height: 700px;
+    }
+  }
 </style>

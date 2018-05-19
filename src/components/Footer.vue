@@ -11,5 +11,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import "../styles/colors";
+
+  .footer {
+    height: 80px;
+    color: $white-smoke;
+    background: $cyprus;
+  }
 
 </style>
