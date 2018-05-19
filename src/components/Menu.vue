@@ -48,7 +48,7 @@ export default {
 
   .menu {
     position: fixed;
-    top: 170px;
+    top: 30px;
     left: 5px;
     display: inline-block;
 
@@ -98,7 +98,8 @@ export default {
       justify-content: center;
       align-items: center;
       background: $emerald;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
+      margin-left: 30px;
       transition: background .2s ease-out;
 
       &:hover {
