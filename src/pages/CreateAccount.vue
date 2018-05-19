@@ -118,54 +118,58 @@ export default {
         login,
         password,
         retypePassword,
-      } = this;
-      let { errors } = this;
+      } = this.$store.state.user;
+      const { $store: { commit } } = this;
       e.preventDefault();
 
-      errors = { isValid: true };
+      console.log(this.$store.getters.submitErrors);
 
       if (!firstName) {
-        errors.firstName = 'Required';
-        errors.isValid = false;
+        commit('UPDATE_ERRORS', {
+          firstName: 'firstName',
+          required: 'Required',
+        });
+        // errors.firstName = 'Required';
+        // errors.isValid = false;
       }
 
       if (!lastName) {
-        errors.lastName = 'Required';
-        errors.isValid = false;
+        // errors.lastName = 'Required';
+        // errors.isValid = false;
       }
 
       if (!birthday) {
-        errors.birthday = 'Required';
-        errors.isValid = false;
+        // errors.birthday = 'Required';
+        // errors.isValid = false;
       }
 
       if (!email) {
-        errors.email = 'Required';
-        errors.isValid = false;
+        // errors.email = 'Required';
+        // errors.isValid = false;
       }
 
       if (!login) {
-        errors.login = 'Required';
-        errors.isValid = false;
+        // errors.login = 'Required';
+        // errors.isValid = false;
       } else if (login.length < 6) {
-        errors.login = 'Login should be > 6';
-        errors.isValid = false;
+        // errors.login = 'Login should be > 6';
+        // errors.isValid = false;
       }
 
       if (!password) {
-        errors.password = 'Required';
-        errors.isValid = false;
+        // errors.password = 'Required';
+        // errors.isValid = false;
       } else if (validatePassword(password)) {
-        errors.password = 'Incorrect password';
-        errors.isValid = false;
+        // errors.password = 'Incorrect password';
+        // errors.isValid = false;
       }
 
       if (!retypePassword) {
-        errors.retypePassword = 'Required';
-        errors.isValid = false;
+        // errors.retypePassword = 'Required';
+        // errors.isValid = false;
       } else if (password !== retypePassword) {
-        errors.retypePassword = 'Passwords don\'t match';
-        errors.isValid = false;
+        // errors.retypePassword = 'Passwords don\'t match';
+        // errors.isValid = false;
       }
 
       this.errors = 'Error';

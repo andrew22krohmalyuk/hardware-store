@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
-    submitErrors: {},
+    submitErrors: { isValid: true },
   },
   getters: {
     firstName: state => state.user.firstName,
@@ -20,11 +20,14 @@ export default new Vuex.Store({
         state.user[key] = value;
       }
     },
-  },
-  actions: {
-    userName: (context, payload) => {
-      context.commit('CHANGE_USERNAME', payload);
+    UPDATE_ERRORS(state, data) {
+      const { key, value } = data;
+
+      if (state.submitErrors[key]) {
+        state.submitErrors[key] = value;
+      }
     },
   },
+  actions: { },
   // strict: true,
 });
