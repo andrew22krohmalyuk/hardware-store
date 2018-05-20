@@ -6,28 +6,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
-    submitErrors: { isValid: true },
+    errors: { isValid: false },
   },
   getters: {
-    firstName: state => state.user.firstName,
-    submitErrors: state => state.submitErrors,
+    getUser: state => state.user,
+    getErrors: state => state.errors,
+  },
+  actions: {
+    setUserProp(context, payload) {
+      context.commit('setUserProp', payload);
+    },
   },
   mutations: {
-    UPDATE_FORM(state, data) {
-      const { key, value } = data;
-
-      if (state.user[key]) {
-        state.user[key] = value;
-      }
-    },
-    UPDATE_ERRORS(state, data) {
-      const { key, value } = data;
-
-      if (state.submitErrors[key]) {
-        state.submitErrors[key] = value;
-      }
+    setUserProp(state, { key, value }) {
+      state.user[key] = value;
     },
   },
-  actions: { },
-  // strict: true,
+  strict: true,
 });
