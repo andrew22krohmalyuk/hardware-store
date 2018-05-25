@@ -215,13 +215,15 @@ export default {
       'setUserProp',
       'setErrorsProp',
       'resetErrorsProp',
+      'createRegister',
     ]),
-    submit() {
+    submit(e) {
+      e.preventDefault();
       // eslint-disable-next-line
       const isValidForm = Object.values(this.getErrors).every(item => !item) && Object.values(this.getUser).length === 7;
 
       if (isValidForm) {
-        // TODO send post
+        this.createRegister(this.getUser);
       }
     },
   },
