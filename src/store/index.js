@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as API from '../utils/API';
 
 Vue.use(Vuex);
 
@@ -14,6 +15,9 @@ export default new Vuex.Store({
       login: null,
       password: null,
       retypePassword: null,
+    },
+    app: {
+      registerSuccess: null,
     },
   },
   getters: {
@@ -30,6 +34,16 @@ export default new Vuex.Store({
     resetErrorsProp(context, payload) {
       context.commit('RESET_ERRORS_PROP', payload);
     },
+    createRegister(context, payload) {
+      API.createRegister(payload)
+        .then((res) => {
+          if (res.status === 200) {
+            context.commit('SET_REGISTER_STATUS', { registerSuccess: true });
+          } else {
+            context.commit('SET_REGISTER_STATUS', { registerSuccess: false });
+          }
+        });
+    },
   },
   mutations: {
     SET_USER_PROP(state, { key, value }) {
@@ -40,6 +54,9 @@ export default new Vuex.Store({
     },
     RESET_ERRORS_PROP(state, { key }) {
       state.errors[key] = false;
+    },
+    SET_REGISTER_STATUS(state, { registerSuccess }) {
+      state.app.registerSuccess = registerSuccess;
     },
   },
   strict: true,
