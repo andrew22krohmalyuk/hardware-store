@@ -10,6 +10,12 @@
             class="products__item-wrapper"
           >
             <div class="products__item-image-wrapper">
+              <div class="products__item-image-edit-wrapper">
+                <img class="products__item-image-edit" src="@/assets/edit.svg" alt="">
+              </div>
+              <div class="products__item-image-save-wrapper">
+                <img class="products__item-image-save" src="@/assets/check.svg" alt="">
+              </div>
               <img :src="item.imageUrl" class="products__item-image" />
               <div class="products__item-title">
                 {{ item.name }}
@@ -86,6 +92,42 @@ export default {
     }
 
     &__item-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    &__item-image-edit-wrapper {
+      position: absolute;
+      width: 21px;
+      top: 0px;
+      right: 60px;
+      cursor: pointer;
+      padding: 7px;
+      padding-top: 15px;
+      background: rgba(0, 0, 0, .4);
+      border-radius: 0 0 12px 12px;
+    }
+
+    &__item-image-edit {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    &__item-image-save-wrapper {
+      position: absolute;
+      width: 21px;
+      top: 0px;
+      right: 15px;
+      cursor: pointer;
+      padding: 7px;
+      padding-top: 15px;
+      background: rgba(0, 0, 0, .4);
+      border-radius: 0 0 12px 12px;
+    }
+
+    &__item-image-save {
       width: 100%;
       height: auto;
       display: block;
