@@ -131,6 +131,7 @@ export default {
     ...mapGetters([
       'getUser',
       'getErrors',
+      'getRegisterSuccess',
     ]),
   },
   watch: {
@@ -209,6 +210,9 @@ export default {
         this.setErrorsProp({ key: 'retypePassword', value: 'Required' });
       }
     },
+    getRegisterSuccess(newVal) {
+      if (newVal) this.$router.push('/welcome-page');
+    },
   },
   methods: {
     ...mapActions([
@@ -222,9 +226,7 @@ export default {
       // eslint-disable-next-line
       const isValidForm = Object.values(this.getErrors).every(item => !item) && Object.values(this.getUser).length === 7;
 
-      if (isValidForm) {
-        this.createRegister(this.getUser);
-      }
+      if (isValidForm) this.createRegister(this.getUser);
     },
   },
   created() {

@@ -23,6 +23,7 @@ export default new Vuex.Store({
   getters: {
     getUser: state => state.user,
     getErrors: state => state.errors,
+    getRegisterSuccess: state => state.app.registerSuccess,
   },
   actions: {
     setUserProp(context, payload) {

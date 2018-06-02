@@ -10,4 +10,13 @@ const User = mongoose.model('User', {
   password: String,
 });
 
+const Good = mongoose.model('Good', {
+  name: String,
+  price: String,
+  group: String,
+  imageUrl: String,
+  description: String,
+});
+
 exports.User = User;
+exports.Good = Good;
