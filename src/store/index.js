@@ -19,6 +19,7 @@ export default new Vuex.Store({
     app: {
       registerSuccess: null,
     },
+    products: [],
   },
   getters: {
     getUser: state => state.user,
