@@ -51,5 +51,5 @@ app.post('/api/products', (req, res) => {
 });
 
 app.listen(config.SERVER_PORT, () => {
-  console.log(`API listening on port ${config.SERVER_PORT}`);
+  console.log(`API listening on port: ${config.SERVER_PORT}`);
 });

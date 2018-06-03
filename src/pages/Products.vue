@@ -109,6 +109,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { mapGetters, mapActions } from 'vuex';
 
+const DELAY_BEETWEEN_ADD_AND_FETCH = 3000;
+
 export default {
   name: 'products-page',
   data() {
@@ -157,7 +159,7 @@ export default {
         setTimeout(() => {
           this.getProducts();
           this.resetProductsSuccess();
-        }, 3000);
+        }, DELAY_BEETWEEN_ADD_AND_FETCH);
       }
     },
   },
