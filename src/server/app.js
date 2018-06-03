@@ -50,6 +50,18 @@ app.post('/api/products', (req, res) => {
     });
 });
 
+app.put('/api/products/:id', (req, res) => {
+  Good.findByIdAndUpdate(req.params.id, req.body, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(JSON.stringify({
+      status: 200,
+      message: 'Good was updated',
+    }));
+  });
+});
+
 app.listen(config.SERVER_PORT, () => {
   console.log(`API listening on port: ${config.SERVER_PORT}`);
 });

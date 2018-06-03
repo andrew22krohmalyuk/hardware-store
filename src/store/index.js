@@ -19,6 +19,7 @@ export default new Vuex.Store({
     app: {
       registerSuccess: null,
       addProductsSuccess: null,
+      editProductsSuccess: null,
     },
     products: [],
   },
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     getRegisterSuccess: state => state.app.registerSuccess,
     getProductsItems: state => state.products,
     getProductsSuccess: state => state.app.addProductsSuccess,
+    getEditProductsSuccess: state => state.app.editProductsSuccess,
   },
   actions: {
     setUserProp(context, payload) {
@@ -69,6 +71,17 @@ export default new Vuex.Store({
           }
         });
     },
+    createEditProducts(context, payload) {
+      // eslint-disable-next-line
+      API.editProducts(payload, payload._id)
+        .then((res) => {
+          if (res.status === 200) {
+            context.commit('EDIT_PRODUCTS_SUCCESS', { editProductsSuccess: true });
+          } else {
+            context.commit('EDIT_PRODUCTS_FAILURE', { editProductsSuccess: false });
+          }
+        });
+    },
     resetProductsSuccess(context) {
       context.commit('RESET_PRODUCTS_SUCCESS');
     },
@@ -93,7 +106,10 @@ export default new Vuex.Store({
       state.app.addProductsSuccess = addProductsSuccess;
     },
     RESET_PRODUCTS_SUCCESS(state) {
-      state.app.addProductsSuccess = null;
+      state.app.editProductsSuccess = null;
+    },
+    EDIT_PRODUCTS_SUCCESS(state) {
+      state.app.editProductsSuccess = true;
     },
   },
   strict: true,

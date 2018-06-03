@@ -16,7 +16,12 @@
                 {{ item.price }}
               </div>
               <div class="products__item-image-edit-wrapper">
-                <img class="products__item-image-edit" src="@/assets/edit.svg" alt="">
+                <img
+                  @click="showModal({ EditProductItem: item })"
+                  class="products__item-image-edit"
+                  src="@/assets/edit.svg"
+                  alt="Edit Modal"
+                >
               </div>
               <div class="products__item-image-save-wrapper">
                 <img class="products__item-image-save" src="@/assets/check.svg" alt="">
@@ -36,49 +41,49 @@
         </div>
       </div>
       <div
-        class="products__add-modal-wrapper"
-        :class="{ ['products__add-modal-wrapper--active']: isActiveModal }"
+        class="products__modal-wrapper"
+        :class="{ ['products__modal-wrapper--active']: isActiveModal }"
       >
         <div
-          class="products__add-modal"
-          :class="{ ['products__add-modal--active']: isActiveModal }"
+          class="products__modal"
+          :class="{ ['products__modal--active']: isActiveModal }"
         >
-          <div @click="closeModal" class="products__add-modal-close-wrapper">
+          <div @click="closeModal" class="products__modal-close-wrapper">
             <img
-              class="products__add-modal-close"
+              class="products__modal-close"
               src="@/assets/times.svg"
               alt="Close Icon"
             >
           </div>
-          <div class="products__add-modal-inputs">
-            <div class="products__add-modal-input-wrapper">
+          <div class="products__modal-inputs">
+            <div class="products__modal-input-wrapper">
               <input
-                v-model="newProduct.name"
+                v-model="activeProduct.name"
                 placeholder="Name"
-                class="products__add-modal-input"
+                class="products__modal-input"
                 type="text"
               >
             </div>
-            <div class="products__add-modal-input-wrapper">
+            <div class="products__modal-input-wrapper">
               <input
-                v-model="newProduct.imageUrl"
+                v-model="activeProduct.imageUrl"
                 placeholder="Image Url"
-                class="products__add-modal-input"
+                class="products__modal-input"
                 type="text"
               >
             </div>
-            <div class="products__add-modal-input-wrapper">
+            <div class="products__modal-input-wrapper">
               <input
-                v-model="newProduct.price"
+                v-model="activeProduct.price"
                 placeholder="Price"
-                class="products__add-modal-input"
+                class="products__modal-input"
                 type="text"
               >
             </div>
-            <div class="products__add-modal-select-wrapper">
+            <div class="products__modal-select-wrapper">
               <select
-                v-model="newProduct.group"
-                class="products__add-modal-select"
+                v-model="activeProduct.group"
+                class="products__modal-select"
                 name="group"
               >
                 <option></option>
@@ -86,16 +91,16 @@
                 <option value="Hand Tools">Hand Tools</option>
               </select>
             </div>
-            <div class="products__add-modal-textarea-wrapper">
+            <div class="products__modal-textarea-wrapper">
               <textarea
-                v-model="newProduct.description"
-                class="products__add-modal-textarea"
+                v-model="activeProduct.description"
+                class="products__modal-textarea"
                 placeholder="Description"
                 name="description"
               ></textarea>
             </div>
-            <div class="products__add-modal-button-wrapper">
-              <button @click="submit" class="products__add-modal-button">Save</button>
+            <div class="products__modal-button-wrapper">
+              <button @click="submit" class="products__modal-button">Save</button>
             </div>
           </div>
         </div>
@@ -116,7 +121,8 @@ export default {
   data() {
     return {
       isActiveModal: false,
-      newProduct: {
+      isEdit: false,
+      activeProduct: {
         name: null,
         imageUrl: null,
         price: null,
@@ -133,19 +139,41 @@ export default {
     ...mapGetters([
       'getProductsItems',
       'getProductsSuccess',
+      'getEditProductsSuccess',
     ]),
   },
   methods: {
     ...mapActions([
       'getProducts',
       'addProducts',
+      'createEditProducts',
+      'resetProductsSuccess',
       'resetProductsSuccess',
     ]),
-    submit() {
-      this.addProducts(this.newProduct);
+    resetActiveProduct() {
+      this.activeProduct = {
+        name: null,
+        imageUrl: null,
+        price: null,
+        group: null,
+        description: null,
+      };
+      this.isEdit = false;
     },
-    showModal() {
+    submit() {
+      if (this.isEdit) {
+        this.createEditProducts(this.activeProduct);
+        return;
+      }
+      this.addProducts(this.activeProduct);
+    },
+    showModal({ EditProductItem }) {
+      this.resetActiveProduct();
       this.isActiveModal = true;
+      if (EditProductItem) {
+        this.activeProduct = { ...EditProductItem };
+        this.isEdit = true;
+      }
     },
     closeModal() {
       this.isActiveModal = false;
@@ -156,10 +184,15 @@ export default {
       if (newVal) {
         this.closeModal();
 
-        setTimeout(() => {
-          this.getProducts();
-          this.resetProductsSuccess();
-        }, DELAY_BEETWEEN_ADD_AND_FETCH);
+        this.getProducts();
+        this.resetProductsSuccess();
+      }
+    },
+    getEditProductsSuccess(newVal) {
+      if (newVal) {
+        this.closeModal();
+        this.resetProductsSuccess();
+        this.getProducts();
       }
     },
   },
@@ -327,7 +360,7 @@ export default {
       transform: translateY(-2px);
     }
 
-    &__add-modal-wrapper {
+    &__modal-wrapper {
       position: fixed;
       left: 0;
       right: 0;
@@ -348,7 +381,7 @@ export default {
       }
     }
 
-    &__add-modal {
+    &__modal {
       width: 450px;
       transition: transform .5s;
       transform: translateY(10px);
@@ -358,7 +391,7 @@ export default {
       }
     }
 
-    &__add-modal-close-wrapper {
+    &__modal-close-wrapper {
       width: 15px;
       padding: 5px;
       cursor: pointer;
@@ -367,27 +400,27 @@ export default {
       align-self: flex-end;
     }
 
-    &__add-modal-close {
+    &__modal-close {
       width: 100%;
       height: auto;
     }
 
-    &__add-modal {
+    &__modal {
       background: $white;
       display: flex;
       flex-direction: column;
       border-radius: 3px;
     }
 
-    &__add-modal-inputs {
+    &__modal-inputs {
       padding: 15px;
     }
 
-    &__add-modal-input-wrapper {
+    &__modal-input-wrapper {
       display: flex;
     }
 
-    &__add-modal-input {
+    &__modal-input {
       flex: 1;
       padding: .6rem .7rem;
       margin-top: 10px;
@@ -401,11 +434,11 @@ export default {
       outline: none;
     }
 
-    &__add-modal-select-wrapper {
+    &__modal-select-wrapper {
 
     }
 
-    &__add-modal-select {
+    &__modal-select {
       outline: none;
       width: 100%;
       border: 0;
@@ -415,11 +448,11 @@ export default {
       font-size: 14px;
     }
 
-    &__add-modal-textarea-wrapper {
+    &__modal-textarea-wrapper {
       display: flex;
     }
 
-    &__add-modal-textarea {
+    &__modal-textarea {
       flex: 1;
       border: 1px solid $white-smoke;
       color: $emerald;
@@ -431,12 +464,12 @@ export default {
       background: $white-smoke;
     }
 
-    &__add-modal-button-wrapper {
+    &__modal-button-wrapper {
       display: flex;
       padding-top: 10px;
     }
 
-    &__add-modal-button {
+    &__modal-button {
       padding: 10px;
       flex: 1;
       font-size: 21px;
