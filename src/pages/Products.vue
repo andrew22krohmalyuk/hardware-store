@@ -10,6 +10,9 @@
             class="products__item-wrapper"
           >
             <div class="products__item-image-wrapper">
+              <div class="products__item-price">
+                {{ item.price }}
+              </div>
               <div class="products__item-image-edit-wrapper">
                 <img class="products__item-image-edit" src="@/assets/edit.svg" alt="">
               </div>
@@ -85,6 +88,12 @@ export default {
       flex-direction: column;
       justify-content: space-between;
       box-shadow: 3px 4px 10px 4px rgba(0,0,0,0.2);
+
+      &:hover {
+        .products__item-image-edit-wrapper {
+          transform: translateY(0);
+        }
+      }
     }
 
     &__item-image-wrapper {
@@ -107,6 +116,8 @@ export default {
       padding-top: 15px;
       background: rgba(0, 0, 0, .4);
       border-radius: 0 0 12px 12px;
+      transition: transform .3s;
+      transform: translateY(-100%);
     }
 
     &__item-image-edit {
@@ -125,6 +136,8 @@ export default {
       padding-top: 15px;
       background: rgba(0, 0, 0, .4);
       border-radius: 0 0 12px 12px;
+      transition: transform .3s;
+      transform: translateY(-100%);
     }
 
     &__item-image-save {
@@ -150,6 +163,17 @@ export default {
       line-height: 1.3;
       padding: 15px 25px;
       color: $night-rider;
+    }
+
+    &__item-price {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      font-size: 17px;
+      color: $white;
+      background: $emerald;
+      padding: 3px;
+      border-radius: 3px;
     }
 
     &__item-button-wrapper {
