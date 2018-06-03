@@ -62,6 +62,18 @@ app.put('/api/products/:id', (req, res) => {
   });
 });
 
+app.delete('/api/products/:id', (req, res) => {
+  Good.findByIdAndRemove(req.params.id, req.body, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(JSON.stringify({
+      status: 200,
+      message: 'Good was deleted',
+    }));
+  });
+});
+
 app.listen(config.SERVER_PORT, () => {
   console.log(`API listening on port: ${config.SERVER_PORT}`);
 });

@@ -102,6 +102,14 @@
             <div class="products__modal-button-wrapper">
               <button @click="submit" class="products__modal-button">Save</button>
             </div>
+            <div v-if="isEdit" class="products__modal-button-delete-wrapper">
+              <button
+                @click="createDeleteProducts(activeProduct)"
+                class="products__modal-button-delete"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -113,8 +121,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { mapGetters, mapActions } from 'vuex';
-
-const DELAY_BEETWEEN_ADD_AND_FETCH = 2000;
 
 export default {
   name: 'products-page',
@@ -149,6 +155,7 @@ export default {
       'createEditProducts',
       'resetProductsSuccess',
       'resetProductsSuccess',
+      'deleteProducts',
     ]),
     resetActiveProduct() {
       this.activeProduct = {
@@ -166,6 +173,7 @@ export default {
         return;
       }
       this.addProducts(this.activeProduct);
+      this.closeModal();
     },
     showModal({ EditProductItem }) {
       this.resetActiveProduct();
@@ -178,13 +186,16 @@ export default {
     closeModal() {
       this.isActiveModal = false;
     },
+    createDeleteProducts({ _id }) {
+      this.deleteProducts(_id);
+      this.closeModal();
+    },
   },
   watch: {
     getProductsSuccess(newVal) {
       if (newVal) {
         this.closeModal();
 
-        this.getProducts();
         this.resetProductsSuccess();
       }
     },
@@ -197,6 +208,9 @@ export default {
     },
   },
   created() {
+    this.getProducts();
+  },
+  updated() {
     this.getProducts();
   },
 };
@@ -483,6 +497,28 @@ export default {
 
       &:hover {
         background: linear-gradient(90deg, $emerald - 10, $emerald + 15);
+      }
+    }
+
+    &__modal-button-delete-wrapper {
+      display: flex;
+      padding-top: 10px;
+    }
+
+    &__modal-button-delete {
+      padding: 10px;
+      flex: 1;
+      font-size: 21px;
+      border: 0;
+      outline: none;
+      border-radius: 3px;
+      color: $white;
+      cursor: pointer;
+      transition: background 4s;
+      background: linear-gradient(90deg, $alizarin-dark, $alizarin-dark + 25);
+
+      &:hover {
+        background: linear-gradient(90deg, $alizarin-dark - 10, $alizarin-dark + 15);
       }
     }
   }
