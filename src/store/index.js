@@ -84,14 +84,7 @@ export default new Vuex.Store({
     },
     deleteProducts(context, payload) {
       // eslint-disable-next-line
-      API.deleteProducts(payload, payload._id)
-        .then((res) => {
-          if (res.status === 200) {
-            // context.commit('EDIT_PRODUCTS_SUCCESS', { editProductsSuccess: true });
-          } else {
-            // context.commit('EDIT_PRODUCTS_FAILURE', { editProductsSuccess: false });
-          }
-        });
+      API.deleteProducts(payload, payload._id);
     },
     resetProductsSuccess(context) {
       context.commit('RESET_PRODUCTS_SUCCESS');
