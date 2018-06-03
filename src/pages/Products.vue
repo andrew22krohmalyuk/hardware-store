@@ -2,7 +2,7 @@
     <div class="products">
       <app-head />
       <div class="products__content">
-        <div class="products__add-image-wrapper">
+        <div @click="showModal" class="products__add-image-wrapper">
           <img class="products__add-image" src="@/assets/plus.svg" alt="Add Icon">
         </div>
         <div class="products__items-wrapper">
@@ -35,10 +35,21 @@
           </div>
         </div>
       </div>
-      <div class="products__add-modal-wrapper">
-        <div class="products__add-modal">
-          <div class="products__add-modal-close-wrapper">
-            <img class="products__add-modal-close" src="@/assets/times.svg" alt="Close Icon">
+      <div
+        @click="closeModal"
+        class="products__add-modal-wrapper"
+        :class="{ ['products__add-modal-wrapper--active']: isActiveModal }"
+      >
+        <div
+          class="products__add-modal"
+          :class="{ ['products__add-modal--active']: isActiveModal }"
+        >
+          <div @click="closeModal" class="products__add-modal-close-wrapper">
+            <img
+              class="products__add-modal-close"
+              src="@/assets/times.svg"
+              alt="Close Icon"
+            >
           </div>
           <div class="products__add-modal-inputs">
             <div class="products__add-modal-input-wrapper">
@@ -81,6 +92,11 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'products-page',
+  data() {
+    return {
+      isActiveModal: false,
+    };
+  },
   components: {
     'app-head': Header,
     'app-footer': Footer,
@@ -94,6 +110,12 @@ export default {
     ...mapActions([
       'getProducts',
     ]),
+    showModal() {
+      this.isActiveModal = true;
+    },
+    closeModal() {
+      this.isActiveModal = false;
+    },
   },
   created() {
     this.getProducts();
@@ -268,16 +290,32 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: opacity .3s;
+      opacity: 0;
+      visibility: hidden;
+
+      &--active {
+        opacity: 1;
+        visibility: visible;
+      }
     }
 
     &__add-modal {
       width: 450px;
+      transition: transform .5s;
+      transform: translateY(10px);
+
+      &--active {
+        transform: none;
+      }
     }
 
     &__add-modal-close-wrapper {
       width: 15px;
       padding: 5px;
       cursor: pointer;
+      margin-top: 5px;
+      margin-right: 5px;
       align-self: flex-end;
     }
 
