@@ -109,7 +109,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { mapGetters, mapActions } from 'vuex';
 
-const DELAY_BEETWEEN_ADD_AND_FETCH = 3000;
+const DELAY_BEETWEEN_ADD_AND_FETCH = 2000;
 
 export default {
   name: 'products-page',
@@ -258,7 +258,7 @@ export default {
       left: 0;
       right: 0;
       padding: 5px 10px;
-      font-size: 24px;
+      font-size: 21px;
       color: $white;
       background: rgba(0, 0, 0, .3);
       text-align: right;
