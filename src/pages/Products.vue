@@ -2,7 +2,9 @@
     <div class="products">
       <app-head />
       <div class="products__content">
-        <div class="products__title">Products Page</div>
+        <div class="products__add-image-wrapper">
+          <img class="products__add-image" src="@/assets/plus.svg" alt="Add Icon">
+        </div>
         <div class="products__items-wrapper">
           <div
             v-for="item in getProductsItems"
@@ -31,6 +33,14 @@
               <button class="products__item-button">Buy</button>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="products__add-modal-wrapper">
+        <div class="products__add-modal">
+          <div class="products__add-modal-close-wrapper">
+            <img class="products__add-modal-close" src="@/assets/times.svg" alt="Close Icon">
+          </div>
+          Test
         </div>
       </div>
       <app-footer />
@@ -194,6 +204,64 @@ export default {
       &:hover {
         background: linear-gradient(90deg, $emerald - 10, $emerald + 15);
       }
+    }
+
+    &__add-image-wrapper {
+      position: fixed;
+      left: 30px;
+      bottom: 250px;
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+      background: $emerald;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 9;
+      transition: background .3s;
+
+      &:hover {
+        background: $emerald - 25;
+      }
+    }
+
+    &__add-image {
+      width: 100%;
+      height: auto;
+      transform: translateY(-2px);
+    }
+
+    &__add-modal-wrapper {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 9;
+      background: rgba(0, 0, 0, .4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__add-modal-close-wrapper {
+      width: 15px;
+      padding: 5px;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+
+    &__add-modal-close {
+      width: 100%;
+      height: auto;
+    }
+
+    &__add-modal {
+      background: $white;
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      height: 150px;
+      border-radius: 3px;
     }
   }
 </style>
