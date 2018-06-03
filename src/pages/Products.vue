@@ -36,7 +36,6 @@
         </div>
       </div>
       <div
-        @click="closeModal"
         class="products__add-modal-wrapper"
         :class="{ ['products__add-modal-wrapper--active']: isActiveModal }"
       >
