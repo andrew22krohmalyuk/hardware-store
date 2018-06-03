@@ -52,16 +52,35 @@
           </div>
           <div class="products__add-modal-inputs">
             <div class="products__add-modal-input-wrapper">
-              <input placeholder="Name" class="products__add-modal-input" type="text">
+              <input
+                v-model="newProduct.name"
+                placeholder="Name"
+                class="products__add-modal-input"
+                type="text"
+              >
             </div>
             <div class="products__add-modal-input-wrapper">
-              <input placeholder="Image Url" class="products__add-modal-input" type="text">
+              <input
+                v-model="newProduct.imageUrl"
+                placeholder="Image Url"
+                class="products__add-modal-input"
+                type="text"
+              >
             </div>
             <div class="products__add-modal-input-wrapper">
-              <input placeholder="Price" class="products__add-modal-input" type="text">
+              <input
+                v-model="newProduct.price"
+                placeholder="Price"
+                class="products__add-modal-input"
+                type="text"
+              >
             </div>
             <div class="products__add-modal-select-wrapper">
-              <select class="products__add-modal-select" name="group">
+              <select
+                v-model="newProduct.group"
+                class="products__add-modal-select"
+                name="group"
+              >
                 <option></option>
                 <option value="Building Materials">Building Materials</option>
                 <option value="Hand Tools">Hand Tools</option>
@@ -69,13 +88,14 @@
             </div>
             <div class="products__add-modal-textarea-wrapper">
               <textarea
+                v-model="newProduct.description"
                 class="products__add-modal-textarea"
                 placeholder="Description"
                 name="description"
               ></textarea>
             </div>
             <div class="products__add-modal-button-wrapper">
-              <button class="products__add-modal-button">Save</button>
+              <button @click="submit" class="products__add-modal-button">Save</button>
             </div>
           </div>
         </div>
@@ -94,6 +114,13 @@ export default {
   data() {
     return {
       isActiveModal: false,
+      newProduct: {
+        name: null,
+        imageUrl: null,
+        price: null,
+        group: null,
+        description: null,
+      },
     };
   },
   components: {
@@ -103,17 +130,35 @@ export default {
   computed: {
     ...mapGetters([
       'getProductsItems',
+      'getProductsSuccess',
     ]),
   },
   methods: {
     ...mapActions([
       'getProducts',
+      'addProducts',
+      'resetProductsSuccess',
     ]),
+    submit() {
+      this.addProducts(this.newProduct);
+    },
     showModal() {
       this.isActiveModal = true;
     },
     closeModal() {
       this.isActiveModal = false;
+    },
+  },
+  watch: {
+    getProductsSuccess(newVal) {
+      if (newVal) {
+        this.closeModal();
+
+        setTimeout(() => {
+          this.getProducts();
+          this.resetProductsSuccess();
+        }, 3000);
+      }
     },
   },
   created() {
@@ -127,7 +172,7 @@ export default {
 
   .products {
     &__content {
-      padding: 50px 10px;
+      padding: 50px 120px;
     }
 
     &__items-wrapper {
@@ -139,6 +184,7 @@ export default {
 
     &__item-wrapper {
       margin: 10px;
+      margin-bottom: 50px;
       border-radius: 5px;
       overflow: hidden;
       max-width: 320px;
@@ -265,6 +311,7 @@ export default {
       border-radius: 50%;
       cursor: pointer;
       z-index: 9;
+      box-shadow: 10px 10px 27px -6px rgba(0,0,0,.2);
       transition: background .3s;
 
       &:hover {
@@ -392,6 +439,7 @@ export default {
       flex: 1;
       font-size: 21px;
       border: 0;
+      outline: none;
       border-radius: 3px;
       color: $white;
       cursor: pointer;

@@ -18,6 +18,7 @@ export default new Vuex.Store({
     },
     app: {
       registerSuccess: null,
+      addProductsSuccess: null,
     },
     products: [],
   },
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     getErrors: state => state.errors,
     getRegisterSuccess: state => state.app.registerSuccess,
     getProductsItems: state => state.products,
+    getProductsSuccess: state => state.app.addProductsSuccess,
   },
   actions: {
     setUserProp(context, payload) {
@@ -57,6 +59,19 @@ export default new Vuex.Store({
           }
         });
     },
+    addProducts(context, payload) {
+      API.addProducts(payload)
+        .then((res) => {
+          if (res.status === 200) {
+            context.commit('ADD_PRODUCTS_SUCCESS', { addProductsSuccess: true });
+          } else {
+            context.commit('ADD_PRODUCTS_FAILURE', { addProductsSuccess: false });
+          }
+        });
+    },
+    resetProductsSuccess(context) {
+      context.commit('RESET_PRODUCTS_SUCCESS');
+    },
   },
   mutations: {
     SET_USER_PROP(state, { key, value }) {
@@ -73,6 +88,12 @@ export default new Vuex.Store({
     },
     GET_PRODUCTS_SUCCESS(state, { products }) {
       state.products = products;
+    },
+    ADD_PRODUCTS_SUCCESS(state, { addProductsSuccess }) {
+      state.app.addProductsSuccess = addProductsSuccess;
+    },
+    RESET_PRODUCTS_SUCCESS(state) {
+      state.app.addProductsSuccess = null;
     },
   },
   strict: true,

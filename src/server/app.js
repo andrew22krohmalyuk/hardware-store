@@ -39,6 +39,17 @@ app.get('/api/products', (req, res) => {
   });
 });
 
+app.post('/api/products', (req, res) => {
+  new Good(req.body).save()
+    .then(() => {
+      res.status(200);
+      res.send(JSON.stringify({
+        status: 200,
+        message: 'Good was saved',
+      }));
+    });
+});
+
 app.listen(config.SERVER_PORT, () => {
   console.log(`API listening on port ${config.SERVER_PORT}`);
 });
