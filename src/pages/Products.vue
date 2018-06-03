@@ -40,7 +40,34 @@
           <div class="products__add-modal-close-wrapper">
             <img class="products__add-modal-close" src="@/assets/times.svg" alt="Close Icon">
           </div>
-          Test
+          <div class="products__add-modal-inputs">
+            <div class="products__add-modal-input-wrapper">
+              <input placeholder="Name" class="products__add-modal-input" type="text">
+            </div>
+            <div class="products__add-modal-input-wrapper">
+              <input placeholder="Image Url" class="products__add-modal-input" type="text">
+            </div>
+            <div class="products__add-modal-input-wrapper">
+              <input placeholder="Price" class="products__add-modal-input" type="text">
+            </div>
+            <div class="products__add-modal-select-wrapper">
+              <select class="products__add-modal-select" name="group">
+                <option></option>
+                <option value="Building Materials">Building Materials</option>
+                <option value="Hand Tools">Hand Tools</option>
+              </select>
+            </div>
+            <div class="products__add-modal-textarea-wrapper">
+              <textarea
+                class="products__add-modal-textarea"
+                placeholder="Description"
+                name="description"
+              ></textarea>
+            </div>
+            <div class="products__add-modal-button-wrapper">
+              <button class="products__add-modal-button">Save</button>
+            </div>
+          </div>
         </div>
       </div>
       <app-footer />
@@ -243,6 +270,10 @@ export default {
       justify-content: center;
     }
 
+    &__add-modal {
+      width: 450px;
+    }
+
     &__add-modal-close-wrapper {
       width: 15px;
       padding: 5px;
@@ -259,9 +290,80 @@ export default {
       background: $white;
       display: flex;
       flex-direction: column;
-      width: 300px;
-      height: 150px;
       border-radius: 3px;
+    }
+
+    &__add-modal-inputs {
+      padding: 15px;
+    }
+
+    &__add-modal-input-wrapper {
+      display: flex;
+    }
+
+    &__add-modal-input {
+      flex: 1;
+      padding: .6rem .7rem;
+      margin-top: 10px;
+      font-size: 16px;
+      display: block;
+      min-width: 250px;
+      border-radius: 3px;
+      border: 1px solid $white-smoke;
+      color: $emerald;
+      background: $white-smoke;
+      outline: none;
+    }
+
+    &__add-modal-select-wrapper {
+
+    }
+
+    &__add-modal-select {
+      outline: none;
+      width: 100%;
+      border: 0;
+      color: $emerald;
+      height: 39px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    &__add-modal-textarea-wrapper {
+      display: flex;
+    }
+
+    &__add-modal-textarea {
+      flex: 1;
+      border: 1px solid $white-smoke;
+      color: $emerald;
+      font-size: 16px;
+      height: 100px;
+      outline: none;
+      border-radius: 3px;
+      padding: 10px;
+      background: $white-smoke;
+    }
+
+    &__add-modal-button-wrapper {
+      display: flex;
+      padding-top: 10px;
+    }
+
+    &__add-modal-button {
+      padding: 10px;
+      flex: 1;
+      font-size: 21px;
+      border: 0;
+      border-radius: 3px;
+      color: $white;
+      cursor: pointer;
+      transition: background 4s;
+      background: linear-gradient(90deg, $emerald, $emerald + 25);
+
+      &:hover {
+        background: linear-gradient(90deg, $emerald - 10, $emerald + 15);
+      }
     }
   }
 </style>
