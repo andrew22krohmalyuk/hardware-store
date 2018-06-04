@@ -4,13 +4,19 @@
       <div class="products__shop-cart-container">
         <div class="products__shop-cart-icon-wrapper">
           <img class="products__shop-cart-icon" src="@/assets/shopping-cart.svg" alt="Cart">
-          <span class="products__shop-cart-count">1</span>
+          <span v-if="getCartItems.length > 0" class="products__shop-cart-count">
+            {{ getCartItems.length }}
+          </span>
         </div>
-        <div class="products__shop-cart-menu-wrapper">
+        <div v-if="getCartItems.length > 0" class="products__shop-cart-menu-wrapper">
 
-          <div class="products__shop-cart-menu-item">
-            <div class="products__shop-cart-menu-item-name">Laminate Flooring</div>
-            <div class="products__shop-cart-menu-item-price">$37.69</div>
+          <div
+            v-for="item in getCartItems"
+            :key="item._id"
+            class="products__shop-cart-menu-item"
+          >
+            <div class="products__shop-cart-menu-item-name">{{ item.name }}</div>
+            <div class="products__shop-cart-menu-item-price">{{ item.price }}</div>
             <div class="products__shop-cart-menu-item-remove-wrapper">
               <img
                 class="products__shop-cart-menu-item-remove"
@@ -63,7 +69,11 @@
               {{ item.description }}
             </div>
             <div class="products__item-button-wrapper">
-              <button class="products__item-button">Buy</button>
+              <button
+                @click="buy(item)"
+                class="products__item-button"
+              >Buy
+              </button>
             </div>
           </div>
         </div>
@@ -174,6 +184,7 @@ export default {
       'getProductsItems',
       'getProductsSuccess',
       'getEditProductsSuccess',
+      'getCartItems',
     ]),
   },
   methods: {
@@ -184,6 +195,7 @@ export default {
       'resetProductsSuccess',
       'resetProductsSuccess',
       'deleteProducts',
+      'buyAction',
     ]),
     resetActiveProduct() {
       this.activeProduct = {
@@ -217,6 +229,9 @@ export default {
     createDeleteProducts(value) {
       this.deleteProducts(value);
       this.closeModal();
+    },
+    buy(item) {
+      this.buyAction(item);
     },
   },
   watch: {
@@ -604,7 +619,7 @@ export default {
     }
 
     &__shop-cart-menu-item-name {
-
+      flex: 1;
     }
 
     &__shop-cart-menu-item-price {

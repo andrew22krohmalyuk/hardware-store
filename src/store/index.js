@@ -22,6 +22,7 @@ export default new Vuex.Store({
       editProductsSuccess: null,
     },
     products: [],
+    cartItems: [],
   },
   getters: {
     getUser: state => state.user,
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     getProductsItems: state => state.products,
     getProductsSuccess: state => state.app.addProductsSuccess,
     getEditProductsSuccess: state => state.app.editProductsSuccess,
+    getCartItems: state => state.cartItems,
   },
   actions: {
     setUserProp(context, payload) {
@@ -91,6 +93,9 @@ export default new Vuex.Store({
     resetProductsSuccess(context) {
       context.commit('RESET_PRODUCTS_SUCCESS');
     },
+    buyAction(context, payload) {
+      context.commit('BUY_PRODUCT', payload);
+    },
   },
   mutations: {
     SET_USER_PROP(state, { key, value }) {
@@ -121,6 +126,9 @@ export default new Vuex.Store({
     },
     EDIT_PRODUCTS_SUCCESS(state) {
       state.app.editProductsSuccess = true;
+    },
+    BUY_PRODUCT(state, item) {
+      state.cartItems = [...state.cartItems, item];
     },
   },
   strict: true,
