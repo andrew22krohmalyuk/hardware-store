@@ -627,7 +627,6 @@ export default {
     }
 
     &__shop-cart-menu-wrapper {
-      background: $emerald;
       padding: 10px;
       position: absolute;
       top: 50px;
@@ -637,6 +636,7 @@ export default {
       margin-top: 40px;
       transform: translateX(120%);
       transition: transform .3s;
+      background: linear-gradient(50deg, $emerald - 25, $emerald + 25);
       box-shadow: 10px 10px 27px -6px rgba(0, 0, 0, 0.2);
 
       &--active {
