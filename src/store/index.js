@@ -17,6 +17,7 @@ export default new Vuex.Store({
       retypePassword: null,
     },
     app: {
+      loggedUser: false,
       registerSuccess: null,
       addProductsSuccess: null,
       editProductsSuccess: null,
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     getProductsSuccess: state => state.app.addProductsSuccess,
     getEditProductsSuccess: state => state.app.editProductsSuccess,
     getCartItems: state => state.cartItems,
+    getLoggedUser: state => state.app.loggedUser,
   },
   actions: {
     setUserProp(context, payload) {
@@ -100,6 +102,16 @@ export default new Vuex.Store({
       // eslint-disable-next-line
       context.commit('DELETE_PRODUCT', payload._id);
     },
+    createLogin(context, payload) {
+      API.createLogin(payload)
+        .then((res) => {
+          if (res.status === 200) {
+            context.commit('USER_LOGIN_SUCCESS', { user: { ...res.data[0] } });
+          } else {
+            context.commit('USER_LOGIN_FAILURE');
+          }
+        });
+    },
   },
   mutations: {
     SET_USER_PROP(state, { key, value }) {
@@ -137,6 +149,10 @@ export default new Vuex.Store({
     DELETE_PRODUCT(state, id) {
       // eslint-disable-next-line
       state.cartItems = state.cartItems.filter(i => i._id !== id);
+    },
+    USER_LOGIN_SUCCESS(state, user) {
+      state.user = { ...user };
+      state.app.loggedUser = true;
     },
   },
   strict: true,

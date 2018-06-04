@@ -11,14 +11,14 @@
         <form class="home__login-form">
           <div class="home__login-form-input-wrapper">
             <div class="home__login-form-input-title">Email</div>
-            <input type="text" class="home__login-form-input">
+            <input v-model="login" type="text" class="home__login-form-input">
           </div>
           <div class="home__login-form-input-wrapper">
             <div class="home__login-form-input-title">Password</div>
-            <input type="password" class="home__login-form-input">
+            <input v-model="password" type="password" class="home__login-form-input">
           </div>
           <div class="home__login-form-button-wrapper">
-            <button class="home__login-form-button">Submit</button>
+            <button @click="onLogin" class="home__login-form-button">Submit</button>
           </div>
           <div class="home__create-account-wrapper">
             <router-link class="home__create-account" to="/create-account">
@@ -39,13 +39,38 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Menu from '@/components/Menu';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'home-page',
+  data() {
+    return {
+      login: null,
+      password: null,
+    };
+  },
   components: {
     'app-head': Header,
     'app-footer': Footer,
     'app-menu': Menu,
+  },
+  computed: {
+    ...mapGetters([
+      'getLoggedUser',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'createLogin',
+    ]),
+    onLogin() {
+      this.createLogin({ login: this.login, password: this.password });
+    },
+  },
+  watch: {
+    getLoggedUser(newVal) {
+      if (newVal) this.$router.push('/products');
+    },
   },
 };
 </script>

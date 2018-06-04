@@ -33,6 +33,12 @@ app.post('/api/user', (req, res) => {
     });
 });
 
+app.post('/api/login', (req, res) => {
+  User.find({ login: req.body.login, password: req.body.password }, (err, users) => {
+    res.json(users);
+  });
+});
+
 app.get('/api/products', (req, res) => {
   Good.find({}, (err, good) => {
     res.json(good);
