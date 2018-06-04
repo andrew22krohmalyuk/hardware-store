@@ -2,7 +2,7 @@
 
 > My Labs for Programing Web Applications course
 
-## Build Setup
+## VueJS App with Express, Mongoose
 
 ``` bash
 # install dependencies
