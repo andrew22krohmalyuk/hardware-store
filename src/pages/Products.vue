@@ -6,6 +6,28 @@
           <img class="products__shop-cart-icon" src="@/assets/shopping-cart.svg" alt="Cart">
           <span class="products__shop-cart-count">1</span>
         </div>
+        <div class="products__shop-cart-menu-wrapper">
+
+          <div class="products__shop-cart-menu-item">
+            <div class="products__shop-cart-menu-item-name">Laminate Flooring</div>
+            <div class="products__shop-cart-menu-item-price">$37.69</div>
+            <div class="products__shop-cart-menu-item-remove-wrapper">
+              <img
+                class="products__shop-cart-menu-item-remove"
+                src="@/assets/trash-alt.svg"
+                alt="Trash"
+              >
+            </div>
+          </div>
+
+          <div class="products__shop-cart-total-container">
+            <div class="products__shop-cart-total">
+              Total: <span class="products__shop-cart-price">$37.69</span>
+            </div>
+            <button class="products__shop-cart-buy-button">Buy</button>
+          </div>
+
+        </div>
       </div>
       <div class="products__content">
         <div @click="showModal" class="products__add-image-wrapper">
@@ -526,20 +548,22 @@ export default {
     }
 
     &__shop-cart-container {
-
-    }
-
-    &__shop-cart-icon-wrapper {
       position: fixed;
       top: 140px;
       right: 80px;
+      z-index: 5;
+    }
+
+    &__shop-cart-icon-wrapper {
       width: 24px;
       padding: 13px;
+      position: relative;
       text-align: center;
       background: $emerald;
       border-radius: 50%;
       cursor: pointer;
       transition: background .3s;
+      box-shadow: 10px 10px 27px -6px rgba(0, 0, 0, 0.2);
 
       &:hover {
         background: $emerald - 25;
@@ -555,7 +579,7 @@ export default {
 
     &__shop-cart-count {
       position: absolute;
-      top: 0;
+      top: -15px;
       right: -25px;
       background: $emerald;
       color: $white;
@@ -564,6 +588,60 @@ export default {
       padding: 5px;
       padding-bottom: 6px;
       border-radius: 50%;
+    }
+
+    &__shop-cart-menu-wrapper {
+      background: $emerald;
+      padding: 10px;
+      border-radius: 3px;
+      margin-top: 40px;
+      box-shadow: 10px 10px 27px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    &__shop-cart-menu-item {
+      display: flex;
+      color: $white;
+    }
+
+    &__shop-cart-menu-item-name {
+
+    }
+
+    &__shop-cart-menu-item-price {
+      padding-left: 15px;
+    }
+
+    &__shop-cart-total-container {
+      padding-top: 25px;
+      color: $white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__shop-cart-buy-button {
+      background: $white;
+      color: $emerald;
+      padding: 7px 25px;
+      border-radius: 3px;
+      cursor: pointer;
+      border: 0;
+      font-size: 15px;
+      outline: none;
+      display: inline-block;
+    }
+
+    &__shop-cart-menu-item-remove-wrapper {
+      width: 15px;
+      padding: 5px;
+      padding-left: 15px;
+      cursor: pointer;
+      transform: translateY(-7px);
+    }
+
+    &__shop-cart-menu-item-remove {
+      width: 100%;
+      height: auto;
     }
   }
 </style>
