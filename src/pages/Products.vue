@@ -1,10 +1,13 @@
 <template>
     <div class="products">
       <app-head />
-      <div
-        class="products__content"
-        :class="{ ['products__content--blur']: isActiveModal }"
-      >
+      <div class="products__shop-cart-container">
+        <div class="products__shop-cart-icon-wrapper">
+          <img class="products__shop-cart-icon" src="@/assets/shopping-cart.svg" alt="Cart">
+          <span class="products__shop-cart-count">1</span>
+        </div>
+      </div>
+      <div class="products__content">
         <div @click="showModal" class="products__add-image-wrapper">
           <img class="products__add-image" src="@/assets/plus.svg" alt="Add Icon">
         </div>
@@ -222,10 +225,6 @@ export default {
   .products {
     &__content {
       padding: 50px 120px;
-
-      &--blur {
-        filter: blur(1px);
-      }
     }
 
     &__items-wrapper {
@@ -524,6 +523,47 @@ export default {
       &:hover {
         background: linear-gradient(90deg, $alizarin-dark - 10, $alizarin-dark + 15);
       }
+    }
+
+    &__shop-cart-container {
+
+    }
+
+    &__shop-cart-icon-wrapper {
+      position: fixed;
+      top: 140px;
+      right: 80px;
+      width: 24px;
+      padding: 13px;
+      text-align: center;
+      background: $emerald;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background .3s;
+
+      &:hover {
+        background: $emerald - 25;
+      }
+    }
+
+    &__shop-cart-icon {
+      display: inline-block;
+      width: 100%;
+      height: auto;
+      transform: translate(-1px, 1px);
+    }
+
+    &__shop-cart-count {
+      position: absolute;
+      top: 0;
+      right: -25px;
+      background: $emerald;
+      color: $white;
+      width: 13px;
+      height: 13px;
+      padding: 5px;
+      padding-bottom: 6px;
+      border-radius: 50%;
     }
   }
 </style>
