@@ -96,6 +96,10 @@ export default new Vuex.Store({
     buyAction(context, payload) {
       context.commit('BUY_PRODUCT', payload);
     },
+    deleteAction(context, payload) {
+      // eslint-disable-next-line
+      context.commit('DELETE_PRODUCT', payload._id);
+    },
   },
   mutations: {
     SET_USER_PROP(state, { key, value }) {
@@ -129,6 +133,10 @@ export default new Vuex.Store({
     },
     BUY_PRODUCT(state, item) {
       state.cartItems = [...state.cartItems, item];
+    },
+    DELETE_PRODUCT(state, id) {
+      // eslint-disable-next-line
+      state.cartItems = state.cartItems.filter(i => i._id !== id);
     },
   },
   strict: true,

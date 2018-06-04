@@ -2,13 +2,16 @@
     <div class="products">
       <app-head />
       <div class="products__shop-cart-container">
-        <div class="products__shop-cart-icon-wrapper">
+        <div @click="toggleCart" class="products__shop-cart-icon-wrapper">
           <img class="products__shop-cart-icon" src="@/assets/shopping-cart.svg" alt="Cart">
           <span v-if="getCartItems.length > 0" class="products__shop-cart-count">
             {{ getCartItems.length }}
           </span>
         </div>
-        <div v-if="getCartItems.length > 0" class="products__shop-cart-menu-wrapper">
+        <div
+          v-if="getCartItems.length > 0"
+          :class="{ ['products__shop-cart-menu-wrapper--active']: isActiveCart }"
+          class="products__shop-cart-menu-wrapper">
 
           <div
             v-for="item in getCartItems"
@@ -17,7 +20,10 @@
           >
             <div class="products__shop-cart-menu-item-name">{{ item.name }}</div>
             <div class="products__shop-cart-menu-item-price">{{ item.price }}</div>
-            <div class="products__shop-cart-menu-item-remove-wrapper">
+            <div
+              @click="deleteProduct(item)"
+              class="products__shop-cart-menu-item-remove-wrapper"
+            >
               <img
                 class="products__shop-cart-menu-item-remove"
                 src="@/assets/trash-alt.svg"
@@ -28,7 +34,7 @@
 
           <div class="products__shop-cart-total-container">
             <div class="products__shop-cart-total">
-              Total: <span class="products__shop-cart-price">$37.69</span>
+              Total: <span class="products__shop-cart-price">{{ totalPrice }}</span>
             </div>
             <button class="products__shop-cart-buy-button">Buy</button>
           </div>
@@ -70,7 +76,7 @@
             </div>
             <div class="products__item-button-wrapper">
               <button
-                @click="buy(item)"
+                @click="buyProduct(item)"
                 class="products__item-button"
               >Buy
               </button>
@@ -166,6 +172,7 @@ export default {
     return {
       isActiveModal: false,
       isEdit: false,
+      isActiveCart: false,
       activeProduct: {
         name: null,
         imageUrl: null,
@@ -186,6 +193,13 @@ export default {
       'getEditProductsSuccess',
       'getCartItems',
     ]),
+    totalPrice() {
+      let result = 0;
+      this.getCartItems.map(i =>
+        result += parseFloat(i.price.substr(1)));
+
+      return `$${result.toFixed(2)}`;
+    },
   },
   methods: {
     ...mapActions([
@@ -196,6 +210,7 @@ export default {
       'resetProductsSuccess',
       'deleteProducts',
       'buyAction',
+      'deleteAction',
     ]),
     resetActiveProduct() {
       this.activeProduct = {
@@ -230,8 +245,14 @@ export default {
       this.deleteProducts(value);
       this.closeModal();
     },
-    buy(item) {
+    buyProduct(item) {
       this.buyAction(item);
+    },
+    deleteProduct(item) {
+      this.deleteAction(item);
+    },
+    toggleCart() {
+      this.isActiveCart = !this.isActiveCart;
     },
   },
   watch: {
@@ -608,9 +629,19 @@ export default {
     &__shop-cart-menu-wrapper {
       background: $emerald;
       padding: 10px;
+      position: absolute;
+      top: 50px;
+      left: -300px;
+      min-width: 350px;
       border-radius: 3px;
       margin-top: 40px;
+      transform: translateX(120%);
+      transition: transform .3s;
       box-shadow: 10px 10px 27px -6px rgba(0, 0, 0, 0.2);
+
+      &--active {
+        transform: none;
+      }
     }
 
     &__shop-cart-menu-item {
