@@ -106,7 +106,7 @@ export default new Vuex.Store({
       API.createLogin(payload)
         .then((res) => {
           if (res.status === 200) {
-            context.commit('USER_LOGIN_SUCCESS', { user: { ...res.data[0] } });
+            context.commit('USER_LOGIN_SUCCESS', res.data[0]);
           } else {
             context.commit('USER_LOGIN_FAILURE');
           }
