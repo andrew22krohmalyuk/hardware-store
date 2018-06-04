@@ -1,7 +1,10 @@
 <template>
     <div class="products">
       <app-head />
-      <div class="products__content">
+      <div
+        class="products__content"
+        :class="{ ['products__content--blur']: isActiveModal }"
+      >
         <div @click="showModal" class="products__add-image-wrapper">
           <img class="products__add-image" src="@/assets/plus.svg" alt="Add Icon">
         </div>
@@ -219,6 +222,10 @@ export default {
   .products {
     &__content {
       padding: 50px 120px;
+
+      &--blur {
+        filter: blur(1px);
+      }
     }
 
     &__items-wrapper {
