@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "server": "nodemon src/server/app.js",
-    "dev-server": "yarn run dev | yarn run server",
     "start": "yarn run dev | yarn run server",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"

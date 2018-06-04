@@ -186,8 +186,8 @@ export default {
     closeModal() {
       this.isActiveModal = false;
     },
-    createDeleteProducts({ _id }) {
-      this.deleteProducts(_id);
+    createDeleteProducts(value) {
+      this.deleteProducts(value);
       this.closeModal();
     },
   },
@@ -208,9 +208,6 @@ export default {
     },
   },
   created() {
-    this.getProducts();
-  },
-  updated() {
     this.getProducts();
   },
 };

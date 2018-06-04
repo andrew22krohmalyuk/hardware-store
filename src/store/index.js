@@ -65,7 +65,7 @@ export default new Vuex.Store({
       API.addProducts(payload)
         .then((res) => {
           if (res.status === 200) {
-            context.commit('ADD_PRODUCTS_SUCCESS', { addProductsSuccess: true });
+            context.commit('ADD_PRODUCTS_SUCCESS', { addProductsSuccess: true, payload });
           } else {
             context.commit('ADD_PRODUCTS_FAILURE', { addProductsSuccess: false });
           }
@@ -84,7 +84,9 @@ export default new Vuex.Store({
     },
     deleteProducts(context, payload) {
       // eslint-disable-next-line
-      API.deleteProducts(payload, payload._id);
+      API.deleteProducts(payload._id);
+      // eslint-disable-next-line
+      context.commit('DELETE_PRODUCTS_SUCCESS', payload._id);
     },
     resetProductsSuccess(context) {
       context.commit('RESET_PRODUCTS_SUCCESS');
@@ -106,8 +108,13 @@ export default new Vuex.Store({
     GET_PRODUCTS_SUCCESS(state, { products }) {
       state.products = products;
     },
-    ADD_PRODUCTS_SUCCESS(state, { addProductsSuccess }) {
+    ADD_PRODUCTS_SUCCESS(state, { addProductsSuccess, payload }) {
       state.app.addProductsSuccess = addProductsSuccess;
+      state.products = [...state.products, payload];
+    },
+    DELETE_PRODUCTS_SUCCESS(state, id) {
+      // eslint-disable-next-line
+      state.products = state.products.filter(i => i._id !== id);
     },
     RESET_PRODUCTS_SUCCESS(state) {
       state.app.editProductsSuccess = null;
