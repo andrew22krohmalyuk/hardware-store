@@ -32,6 +32,7 @@ module.exports = {
     }],
     // disallow reassignment of function parameters
     // disallow parameter object manipulation except for specific exclusions
+    "no-return-assign": 0,
     'no-param-reassign': ['error', {
       props: true,
       ignorePropertyModificationsFor: [
